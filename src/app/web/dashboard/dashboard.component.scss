@@ -1,0 +1,276 @@
+@import '../../../scss/common';
+
+.attendance {
+  padding-top: 10px;
+  width: 100%;
+}
+
+.card {
+  margin-top: 0;
+
+  h5 {
+    text-align: center;
+    padding: 5px;
+  }
+}
+
+.add_button {
+  float: right;
+
+  button {
+    @include button;
+  }
+}
+
+.modal-footer {
+
+  button {
+    @include button;
+  }
+}
+
+:host::ng-deep .tabView {
+  .p-tabview-nav {
+    border: none;
+  }
+}
+
+::ng-deep .bonusTabview {
+  .p-tabview-nav-container {
+    width: 100%
+  }
+}
+
+.icon {
+  @include button_icon;
+}
+
+.export_button {
+  float: right;
+  display: flex;
+  align-items: center;
+
+  button {
+    @include button_icon;
+    padding: 6px 10px;
+  }
+}
+
+::ng-deep .p-tabview .p-tabview-panels {
+  padding: 20px;
+}
+
+.employeeBonus {
+  padding: 0px 22px;
+}
+
+.employeeAbsent {
+  padding: 0px 20px;
+}
+
+.record {
+  text-align: center;
+  border: 1px solid #ccc;
+  background: #f8f8f8;
+}
+
+.employeeList-table-body {
+  ::ng-deep .p-datatable-wrapper {
+    min-height: calc(100vh - 390px);
+  }
+}
+
+.report-table-body {
+  ::ng-deep .p-datatable-wrapper {
+    min-height: calc(100vh - 325px);
+  }
+}
+
+.attendance-table-body {
+  ::ng-deep .p-datatable-wrapper {
+    min-height: calc(100vh - 485px);
+  }
+}
+
+.action_icon {
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .ng-trigger-overlayAnimation {
+  left: -60% !important;
+}
+
+.required {
+  color: red;
+}
+
+::ng-deep .p-multiselect .p-multiselect-panel {
+  left: 0% !important;
+}
+
+
+
+
+
+
+
+
+
+// tabel css 
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+}
+
+table th {
+  font-size: .85em;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+// tabel css 
+@media only screen and (max-width: 1366px) {
+  .attendance {
+    width: 80% !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .attendance {
+    width: 90% !important;
+  }
+}
+
+@media only screen and (max-width: 912px) {
+  .attendance {
+    width: 95% !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .attendance {
+    width: 100% !important;
+  }
+}
+
+@media only screen and (max-width: 415px) {
+
+  .add_button {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+
+    button {
+      margin: 10px;
+      padding: 4px 4px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      width: 95px;
+      letter-spacing: 0.6px;
+      border-radius: 4px;
+      background: #3b82f6;
+      transition: all 0.3s ease-in-out;
+
+    }
+  }
+
+  ::ng-deep .p-button.p-button-icon-only {
+    padding: 5px;
+  }
+
+  ::ng-deep .p-inputtext {
+    padding: 5px;
+  }
+
+  ::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    padding: 15px !important;
+    border: none;
+  }
+
+  .icon {
+    @include button_icon;
+    font-size: 15px;
+  }
+
+  .export_button {
+    button {
+      @include button_icon;
+      font-size: 16px;
+    }
+  }
+
+}
+
+@media only screen and (max-width: 770px) {
+
+  ::ng-deep .ng-trigger-overlayAnimation {
+    left: -25% !important;
+  }
+
+}

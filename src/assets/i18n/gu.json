@@ -1,0 +1,115 @@
+{
+	"LANGUAGE.ENGLISH": "અંગ્રેજી",
+	"LANGUAGE.GUJRATI": "ગુજરાતી",
+
+	"MENUBAR": {
+		"DASHBOARD": "ડેશબોર્ડ",
+		"Add_Employee": "કર્મચારી ઉમેરો",
+		"Add_Project": "પ્રોજેક્ટ ઉમેરો",
+		"Bonus_Attendance": "બોનસ અને હાજરી",
+		"Report": "અહેવાલ",
+		"Settings": "સેટિંગ્સ",
+		"Logout": "લૉગ આઉટ"
+	},
+
+	"COMMON_MESSAGE": {
+		"loginFdetail": "લૉગિન વિગતો અમાન્ય..",
+		"loginSdetail": "લૉગિન સફળ...",
+		"SubmitData": "ડેટા સફળતાપૂર્વક ઉમેરાયો..",
+		"Filledrequired": "કૃપા કરીને તમામ ફરજિયાત વિગતો ભરો..",
+		"UpdateData": "ડેટા સફળતાપૂર્વક અપડેટ થય ગયો.. ",
+		"DeletedData": "ડેટા સફળતાપૂર્વક કાઢી નાખ્યો..",
+		"DeleteHeader": "કાઢી નાખો",
+		"DeleteAlertL": "શું તમે આ રેકોર્ડ કાઢી નાખવા માંગો છો ?"
+	},
+	
+	"MSGTITLE": {
+		"SUCCESS": "સફળતા",
+		"INFO": "માહિતી",
+		"WARNING": "ચેતવણી",
+		"ERROR": "ભૂલ"
+	},
+
+	"ATTENDANCE": {
+
+		"NO_RECDE_FOUND":"કોઈ રેકોડૅ મળ્યો નથી",
+
+		"ADD_EMPLOYEE":{
+			"ADDEMPLOYEE": "કારીગર",
+			"EDIT_EMPLOYEE": "અપડેટ કારીગર",
+			"SR_No": "નંબર",
+			"FIRST_NAME": "પ્રથમ નામ",
+			"LAST_NAME": "છેલ્લું નામ",
+			"SALARY": "પગાર",
+			"PHONENO": "ફોન નંબર",
+			"ACTION": "એક્સન",
+			"SUBMIT":"સબમિટ કરો",
+			"UPDATE":"અપડેટ"
+		},
+
+		"BONUS_&_ATTENDANCE":{
+			
+			"BONUS&ATTENDANCE" :"બોનસ & હાજરી",
+			"EMPLOYEE_LIST" :"કારીગર યાદી ",
+			"WITHDRAWALLIST" :"ઉપાડ યાદી",
+			"ABSENTLIST" :"ગેરહાજર યાદી",
+			"BONUSLIST" :"બોનસ યાદી",
+			"EX.MACHINESALARYLIST" :"એક્સટ્રા મશીન પગાર યાદી",
+
+			"WITHDRAWAL_LIST" :{
+				"EMPLOYEE":"કારીગર",
+				"AMOUNT":"રકમ",
+				"DATE":"તારીખ",
+				"ACTION":"એક્સન",
+				"ADDWITHDRAWAL":"કારીગર ઉમેરો"
+			},
+
+			"ABSENT_LIST" :{
+				"EMPLOYEE":"કારીગર",
+				"DAY":"દિવસ",
+				"DATE":"તારીખ",
+				"ACTION":"એક્સન",
+				"ADDABSENT":"ગેરહાજર ઉમેરો"
+			},
+
+			"BONUS_LIST" :{
+				"EMPLOYEE":"કારીગર",
+				"AMOUNT":"રકમ",
+				"DATE":"તારીખ",
+				"ACTION":"એક્સન",
+				"ADDBONUS" :"બોનસ ઉમેરો"
+			},
+
+			"EX.MACHINE_SALARY_LIST" :{
+				"EMPLOYEE":"કારીગર",
+				"AMOUNT":"રકમ",
+				"DATE":"તારીખ",
+				"ACTION":"એક્સન",
+				"ADDEX.MACHINESALARY":"એક્સટ્રા મશીન ઉમેરો"
+			}
+
+		},
+
+		"REPORT":{
+			"REPORT":"રિપોર્ટ",
+			"NAME":"નામ",
+			"SALARY":"પગાર",
+			"TOTALDAY":"ટોટલ દિવસ",
+			"ABSENT":"ગેરહાજર",
+			"CUT":"કપાત",
+			"REMAIN_SAL":"બાકી પગાર",
+			"EXTRA_SAL":"વધારા નો",
+			"UPAD":"ઉપાડ",
+			"BONUS":"બોનસ",
+			"FINAL_AMT":"ફાઇનલ રકમ"
+		},
+
+		"Attendance_Button":{
+			"EMPLOYEE":"કારીગર ઉમેરો",
+			"BONUS":"બોનસ",
+			"ABSENT":"ગેરહાજર",
+			"WITHDRAWAL":"ઉપાડ",
+			"EX.MACHINESAL":"એક્સટ્રા મશીન"
+		}
+	}
+}

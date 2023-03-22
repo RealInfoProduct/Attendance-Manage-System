@@ -1,0 +1,19 @@
+.header-content{
+    height: 4rem;
+
+    app-thm-header {
+        position: fixed;
+        // width: 100%;
+        width: auto;
+        top: 0;
+        height: 4rem;
+        z-index: 2;
+        // background: #eeeff1;
+        background-color: #f3f6f8;
+    }
+}
+
+main {
+    height: calc(100vh - 4rem);
+    
+}

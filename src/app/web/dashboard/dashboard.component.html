@@ -1,0 +1,549 @@
+<div class="attendance">
+    <div class="add_button">
+        <button type="button" *ngIf="employeeButton" (click)="employeeAdd()" class="btn btn-primary m-2"
+            data-bs-toggle="modal" data-bs-target="#EmployeeDataAdd">
+            {{'ATTENDANCE.Attendance_Button.EMPLOYEE' | translate}}
+        </button>
+        <button *ngIf="employeeBonusButton && bounsboount" type="button" class="btn btn-primary m-2"
+            data-bs-toggle="modal" data-bs-target="#EmployeeAddBonus">
+            {{'ATTENDANCE.Attendance_Button.BONUS' | translate}}
+        </button>
+        <button *ngIf="employeeBonusButton && absentButton" type="button" class="btn btn-primary m-2"
+            data-bs-toggle="modal" data-bs-target="#EmployeeAbsent">
+            {{'ATTENDANCE.Attendance_Button.ABSENT' | translate}}
+        </button>
+        <button *ngIf="employeeBonusButton && withdrawalButton" type="button" class="btn btn-primary m-2"
+            data-bs-toggle="modal" data-bs-target="#Employeewithdrawal">
+            {{'ATTENDANCE.Attendance_Button.WITHDRAWAL' | translate}}
+        </button>
+        <button *ngIf="employeeBonusButton && machineButton" type="button" class="btn btn-primary m-2"
+            data-bs-toggle="modal" data-bs-target="#machinelist">
+            {{'ATTENDANCE.Attendance_Button.EX.MACHINESAL' | translate}}
+        </button>
+        <p-calendar [(ngModel)]="dateRange" *ngIf="employeeBonusButton" [showIcon]="true" selectionMode="range"
+            [readonlyInput]="false" (onSelect)="selectedBonusAttendanceDateRange(dateRange)">
+        </p-calendar>
+        <div class="export_button" *ngIf="empolyeeReportButton">
+            <button type="button" (click)="pdfGenerate()" pButton pRipe icon="fa fa-file-pdf-o"></button>
+            <p-calendar *ngIf="empolyeeReportButton" [(ngModel)]="dateRange" [showIcon]="true" selectionMode="range"
+                [readonlyInput]="false" inputId="range" (onSelect)="selectedDateRange(dateRange)">
+            </p-calendar>
+        </div>
+    </div>
+    <div class="card">
+        <div class="btn-Tab">
+            <div class="tabView">
+                <p-tabView [(activeIndex)]="index" (onChange)="report(index)">
+                    <p-tabPanel header="{{'ATTENDANCE.ADD_EMPLOYEE.ADDEMPLOYEE' | translate }}">
+                        <table style="box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sr No</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Salary</th>
+                                    <th scope="col">PhoneNo</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of employeeList ; let i = index">
+                                    <td data-label="Sr No">{{i+1}}</td>
+                                    <td data-label="First Name">{{item.firstname}}</td>
+                                    <td data-label="Last Name">{{item.lastname}}</td>
+                                    <td data-label="Salary">{{item.salary}}</td>
+                                    <td data-label="PhoneNo">{{item.phonenumber}}</td>
+                                    <td data-label="Action">
+                                        <div class="action_icon">
+                                            <div class="icon" data-bs-toggle="modal" data-bs-target="#EmployeeDataAdd"
+                                                (click)="editEmployeeData(item)">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="icon" (click)="deleteEmployeeData(item)">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="record" *ngIf="this.employeeList?.length === 0">
+                            <label>No Recode Found</label>
+                        </div>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="{{'ATTENDANCE.BONUS_&_ATTENDANCE.BONUS&ATTENDANCE' | translate }}">
+                        <div class="bonusTabview">
+                            <div class="attendance-table-body">
+                                <div class="tabview">
+                                    <p-tabView [(activeIndex)]="bonusIndex" (onChange)="bonusattendance(bonusIndex)">
+                                        <p-tabPanel
+                                            header="{{'ATTENDANCE.BONUS_&_ATTENDANCE.WITHDRAWALLIST' | translate }}">
+                                            <table style="box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Employee</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of dateWiseEmployeeWithdrawalGet;">
+                                                        <td data-label="Employee">{{item.firstName}}</td>
+                                                        <td data-label="Amount">{{item.withdrawalAmount}}</td>
+                                                        <td data-label="Date">{{item.withdrawalDate}}</td>
+                                                        <td data-label="Action">
+                                                            <div class="action_icon">
+                                                                <div class="icon" (click)="deleteWithdrawalData(item)">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="record"
+                                                *ngIf="this.dateWiseEmployeeWithdrawalGet?.length === 0">
+                                                <label>No Recode Found</label>
+                                            </div>
+                                        </p-tabPanel>
+
+                                        <p-tabPanel
+                                            header="{{'ATTENDANCE.BONUS_&_ATTENDANCE.ABSENTLIST' | translate }}">
+                                            <table style="box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Employee</th>
+                                                        <th scope="col">Day</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of dateWiseEmployeeAbsentGet;">
+                                                        <td data-label="Employee">{{item.firstName}}</td>
+                                                        <td data-label="Day">{{item.dayCount}}</td>
+                                                        <td data-label="Date">{{item.absentDate}}</td>
+                                                        <td data-label="Action">
+                                                            <div class="action_icon">
+                                                                <div class="icon" (click)="deleteAbsentData(item)">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="record" *ngIf="this.dateWiseEmployeeAbsentGet?.length === 0">
+                                                <label>No Recode Found</label>
+                                            </div>
+                                        </p-tabPanel>
+
+                                        <p-tabPanel header="{{'ATTENDANCE.BONUS_&_ATTENDANCE.BONUSLIST' | translate }}">
+                                            <table style="box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Employee</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of dateWiseEmployeeBonusGet;">
+                                                        <td data-label="Employee">{{item.firstName}}</td>
+                                                        <td data-label="Amount">{{item.bonusAmount}}</td>
+                                                        <td data-label="Date">{{item.bonusDate}}</td>
+                                                        <td data-label="Action">
+                                                            <div class="action_icon">
+                                                                <div class="icon" (click)="deleteBonusData(item)">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="record" *ngIf="this.dateWiseEmployeeBonusGet?.length === 0">
+                                                <label>No Recode Found</label>
+                                            </div>
+                                        </p-tabPanel>
+
+                                        <p-tabPanel
+                                            header="{{'ATTENDANCE.BONUS_&_ATTENDANCE.EX.MACHINESALARYLIST' | translate }}">
+                                            <table style="box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Employee</th>
+                                                        <th scope="col">Amount</th>
+                                                        <th scope="col">Date</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of dateWiseExtraSalGet;">
+                                                        <td data-label="Employee">{{item.firstName}}</td>
+                                                        <td data-label="Amount">{{item.machineAmount}}</td>
+                                                        <td data-label="Date">{{item.machineDate}}</td>
+                                                        <td data-label="Action">
+                                                            <div class="action_icon">
+                                                                <div class="icon" (click)="deleteMachineData(item)">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="record" *ngIf="this.dateWiseExtraSalGet?.length === 0">
+                                                <label>No Recode Found</label>
+                                            </div>
+                                        </p-tabPanel>
+
+                                    </p-tabView>
+                                </div>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="{{'ATTENDANCE.REPORT.REPORT' | translate }}">
+                        <table style="box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Salary</th>
+                                    <th scope="col">Days</th>
+                                    <th scope="col">Absent</th>
+                                    <th scope="col">Upad</th>
+                                    <th scope="col">Extra</th>
+                                    <th scope="col">Remain</th>
+                                    <th scope="col">Bonus</th>
+                                    <th scope="col">Final AMT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of employeeList">
+                                    <td data-label="Name">{{item.firstname}}</td>
+                                    <td data-label="Salary">{{item.salary}}</td>
+                                    <td data-label="Days">30</td>
+                                    <td data-label="Absent">{{item.absentDay}}</td>
+                                    <td data-label="Upad">{{item.totalWithdrawalAmount}}</td>
+                                    <td data-label="Extra">{{item.totalExtraSalAmount}}</td>
+                                    <td data-label="Remain">{{item.remainSalary}}</td>
+                                    <td data-label="Bonus">{{item.totalBonusAmount}}</td>
+                                    <td data-label="Final AMT">{{item.finalAmount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="record" *ngIf="this.employeeList?.length === 0">
+                            <label>No Recode Found</label>
+                        </div>
+                        <table style="box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06); margin-top: 15px;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Total Salary</th>
+                                    <th scope="col">Total SalaryCut</th>
+                                    <th scope="col">Total FinalAmt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Total Salary">{{totalSalary}}</td>
+                                    <td data-label="Total SalaryCut">{{totalSalaryCut}}</td>
+                                    <td data-label="Total FinalAmt">{{finalAmtTotal}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Employee -->
+    <div class="modal fade" id="EmployeeDataAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="!isEdit">
+                        {{'ATTENDANCE.Attendance_Button.EMPLOYEE' | translate}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="isEdit">
+                        {{'ATTENDANCE.ADD_EMPLOYEE.EDIT_EMPLOYEE' | translate }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <form [formGroup]="employeeForm">
+                        <div class="row m-2">
+                            <div class="col-md-6">
+                                <div class="col-12 companyInfo m-2">
+                                    <label>{{'ATTENDANCE.ADD_EMPLOYEE.FIRST_NAME' | translate }}</label><span
+                                        class="required">*</span>
+                                    <input type="text" class="form-control" formControlName="firstname"
+                                        placeholder="{{'ATTENDANCE.ADD_EMPLOYEE.FIRST_NAME' | translate }}">
+                                </div>
+                                <div class="col-12 companyInfo m-2">
+                                    <label>{{'ATTENDANCE.ADD_EMPLOYEE.LAST_NAME' | translate }}</label>
+                                    <input type="text" class="form-control" formControlName="lastname"
+                                        placeholder="{{'ATTENDANCE.ADD_EMPLOYEE.LAST_NAME' | translate }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-12 companyInfo m-2">
+                                    <label>{{'ATTENDANCE.ADD_EMPLOYEE.SALARY' | translate }}</label><span
+                                        class="required">*</span>
+                                    <input type="number" class="form-control" formControlName="salary"
+                                        placeholder="{{'ATTENDANCE.ADD_EMPLOYEE.SALARY' | translate }}">
+                                </div>
+                                <div class="col-12 companyInfo m-2">
+                                    <label>{{'ATTENDANCE.ADD_EMPLOYEE.PHONENO' | translate }}</label>
+                                    <input type="number" class="form-control" formControlName="phonenumber"
+                                        placeholder="{{'ATTENDANCE.ADD_EMPLOYEE.PHONENO' | translate }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer p-0">
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="!isEdit" type="submit"
+                                (click)="submit()" [disabled]="employeeForm.invalid"
+                                class="btn btn-secondary">{{'ATTENDANCE.ADD_EMPLOYEE.SUBMIT' | translate }}</button>
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="isEdit" type="submit"
+                                (click)="submit()" [disabled]="employeeForm.invalid"
+                                class="btn btn-secondary">{{'ATTENDANCE.ADD_EMPLOYEE.UPDATE' | translate }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bonus -->
+    <div class="modal fade" id="EmployeeAddBonus" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="!isEdit">
+                        {{'ATTENDANCE.BONUS_&_ATTENDANCE.BONUS_LIST.ADDBONUS' | translate}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="isEdit">Edit Bonus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <form [formGroup]="employeeBonusForm">
+                        <div class="row m-2">
+                            <div class="employeeBonus">
+
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.EMPLOYEE_LIST' | translate }}</label><span
+                                        class="required">*</span>
+                                    <div class="chekbox">
+                                        <p-multiSelect [options]="employeeList"
+                                            [style]="{'width':'100%','border-radius':'3px'}"
+                                            defaultLabel="{{'ATTENDANCE.BONUS_&_ATTENDANCE.EMPLOYEE_LIST' | translate }}"
+                                            optionLabel="firstname" formControlName="employee">
+                                        </p-multiSelect>
+                                    </div>
+                                </div>
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.BONUS_LIST.AMOUNT' | translate
+                                        }}</label><span class="required">*</span>
+                                    <input type="number" class="form-control"
+                                        placeholder="{{'ATTENDANCE.BONUS_&_ATTENDANCE.BONUS_LIST.AMOUNT' | translate }}"
+                                        formControlName="bonusAmount">
+                                </div>
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.BONUS_LIST.DATE' | translate }}</label>
+                                    <input type="date" class="form-control" formControlName="bonusDate">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer p-0">
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="!isEdit" type="submit"
+                                (click)="bonusSubmit()" [disabled]="employeeBonusForm.invalid"
+                                class="btn btn-secondary">{{'ATTENDANCE.ADD_EMPLOYEE.SUBMIT' | translate }}</button>
+                            <!-- <button data-bs-dismiss="modal" aria-label="Close" *ngIf="isEdit" type="submit"
+                                (click)="bonusSubmit()" [disabled]="employeeBonusForm.invalid"
+                                class="btn btn-secondary">Update</button> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal emloyee Absent -->
+    <div class="modal fade" id="EmployeeAbsent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="!isEdit">
+                        {{'ATTENDANCE.BONUS_&_ATTENDANCE.ABSENT_LIST.ADDABSENT' | translate}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="isEdit">Edit Absent</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <form [formGroup]="employeeAbsentForm">
+                        <div class="row m-2">
+                            <div class="employeeAbsent">
+
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.EMPLOYEE_LIST' | translate }}</label><span
+                                        class="required">*</span>
+                                    <div class="chekbox">
+                                        <p-multiSelect [options]="employeeList"
+                                            [style]="{'width':'100%','border-radius':'3px'}"
+                                            defaultLabel="{{'ATTENDANCE.BONUS_&_ATTENDANCE.EMPLOYEE_LIST' | translate }}"
+                                            optionLabel="firstname" formControlName="absentEmployee">
+                                        </p-multiSelect>
+                                    </div>
+                                </div>
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.ABSENT_LIST.DAY' | translate }}</label><span
+                                        class="required">*</span>
+                                    <input type="number" class="form-control" formControlName="dayCount">
+                                </div>
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.ABSENT_LIST.DATE' | translate }}</label>
+                                    <input type="date" class="form-control" formControlName="absentDate">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer p-0">
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="!isEdit" type="submit"
+                                (click)="absentSubmit()" [disabled]="employeeAbsentForm.invalid"
+                                class="btn btn-secondary">{{'ATTENDANCE.ADD_EMPLOYEE.SUBMIT' | translate }}</button>
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="isEdit" type="submit"
+                                (click)="absentSubmit()" [disabled]="employeeAbsentForm.invalid"
+                                class="btn btn-secondary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal withdrawal -->
+    <div class="modal fade" id="Employeewithdrawal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="!isEdit">
+                        {{'ATTENDANCE.BONUS_&_ATTENDANCE.WITHDRAWAL_LIST.ADDWITHDRAWAL' | translate}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="isEdit">Edit Withdrawal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <form [formGroup]="employeeWithdrawalForm">
+                        <div class="row m-2">
+                            <div class="employeeBonus">
+
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.EMPLOYEE_LIST' | translate }}</label><span
+                                        class="required">*</span>
+                                    <div class="chekbox">
+                                        <p-multiSelect [options]="employeeList"
+                                            [style]="{'width':'100%','border-radius':'3px'}"
+                                            defaultLabel="{{'ATTENDANCE.BONUS_&_ATTENDANCE.EMPLOYEE_LIST' | translate }}"
+                                            optionLabel="firstname" formControlName="employee">
+                                        </p-multiSelect>
+                                    </div>
+                                </div>
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.WITHDRAWAL_LIST.AMOUNT' | translate
+                                        }}</label><span class="required">*</span>
+                                    <input type="number" class="form-control"
+                                        placeholder="{{'ATTENDANCE.BONUS_&_ATTENDANCE.WITHDRAWAL_LIST.AMOUNT' | translate }}"
+                                        formControlName="withdrawalAmount">
+                                </div>
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.WITHDRAWAL_LIST.DATE' | translate }}</label>
+                                    <input type="date" class="form-control" formControlName="withdrawalDate">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer p-0">
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="!isEdit" type="submit"
+                                (click)="withdrawalSubmit()" [disabled]="employeeWithdrawalForm.invalid"
+                                class="btn btn-secondary">{{'ATTENDANCE.ADD_EMPLOYEE.SUBMIT' | translate }}</button>
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="isEdit" type="submit"
+                                (click)="withdrawalSubmit()" [disabled]="employeeWithdrawalForm.invalid"
+                                class="btn btn-secondary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Machine -->
+    <div class="modal fade" id="machinelist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="!isEdit">
+                        {{'ATTENDANCE.BONUS_&_ATTENDANCE.EX.MACHINE_SALARY_LIST.ADDEX.MACHINESALARY' | translate}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel" *ngIf="isEdit">Edit Ex.Machine Salary</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <form [formGroup]="machineForm">
+                        <div class="row m-2">
+                            <div class="employeeBonus">
+
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.EMPLOYEE_LIST' | translate }}</label><span
+                                        class="required">*</span>
+                                    <div class="chekbox">
+                                        <p-multiSelect [options]="employeeList"
+                                            [style]="{'width':'100%','border-radius':'3px'}"
+                                            defaultLabel="{{'ATTENDANCE.BONUS_&_ATTENDANCE.EMPLOYEE_LIST' | translate }}"
+                                            optionLabel="firstname" formControlName="machineEmployee">
+                                        </p-multiSelect>
+                                    </div>
+                                </div>
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.EX.MACHINE_SALARY_LIST.AMOUNT' | translate
+                                        }}</label><span class="required">*</span>
+                                    <input type="number" class="form-control"
+                                        placeholder="{{'ATTENDANCE.BONUS_&_ATTENDANCE.EX.MACHINE_SALARY_LIST.AMOUNT' | translate }}"
+                                        formControlName="machineAmount">
+                                </div>
+                                <div class="companyInfo mt-3">
+                                    <label>{{'ATTENDANCE.BONUS_&_ATTENDANCE.EX.MACHINE_SALARY_LIST.DATE' | translate
+                                        }}</label>
+                                    <input type="date" class="form-control" formControlName="machineDate">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer p-0">
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="!isEdit" type="submit"
+                                (click)="machineSubmit()" [disabled]="machineForm.invalid"
+                                class="btn btn-secondary">{{'ATTENDANCE.ADD_EMPLOYEE.SUBMIT' | translate }}</button>
+                            <button data-bs-dismiss="modal" aria-label="Close" *ngIf="isEdit" type="submit"
+                                (click)="machineSubmit()" [disabled]="machineForm.invalid"
+                                class="btn btn-secondary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<p-confirmDialog header="Confirmation"></p-confirmDialog>
+
+<div class="spinner-center">
+    <p-progressSpinner *ngIf="isLoader" [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
+        strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+</div>
+
+<p-toast></p-toast>

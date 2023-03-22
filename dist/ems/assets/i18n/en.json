@@ -1,0 +1,117 @@
+{
+    "LANGUAGE.ENGLISH": "English",
+    "LANGUAGE.GUJRATI": "Gujarati",
+    
+    "MENUBAR": {
+        "DASHBOARD": "Dashboard",
+        "Add_Employee": "Add Employee",
+        "Add_Project": "Add Project",
+        "Bonus_Attendance": "Bonus & Attendance",
+        "Report": "Report",
+        "Settings": "Settings",
+        "Logout": "LogOut"
+    },
+
+    "MSGTITLE": {
+        "SUCCESS": "success",
+        "INFO": "Info",
+        "WARNING": "Waning",
+        "ERROR": "error"
+    },
+
+    "COMMON_MESSAGE": {
+        "loginFdetail": "Login Details Invalid..",
+        "loginSdetail": "Login Successfull...",
+        "SubmitData": "Data Added Succesfully",
+        "Filledrequired": "Please Filled All Mandatory Fields..",
+        "UpdateData": "Data Update Successfully",
+        "DeletedData": "Data Deleted Successfully",
+        "DeleteHeader": "Delete Priority",
+        "DeleteAlertL": "Do you want to delete this record ?"
+    },
+
+    "ATTENDANCE": {
+
+        "NO_RECDE_FOUND":"No Recode Found",
+        
+        "ADD_EMPLOYEE":{
+            "ADDEMPLOYEE": "Add Employee",
+            "EDIT_EMPLOYEE": "Edit Employee",
+            "SR_No": "Sr No",
+            "FIRST_NAME": "First Name",
+            "LAST_NAME": "Last Name",
+            "SALARY": "Salary",
+            "PHONENO": "PhoneNo",
+            "ACTION": "Action",
+            "SUBMIT":"Submit",
+            "UPDATE":"Update"
+        },
+
+        "BONUS_&_ATTENDANCE":{
+
+            "BONUS&ATTENDANCE" :"Bonus & Attendance",
+            "WITHDRAWALLIST" :"Withdrawal List",
+            "ABSENTLIST" :"Absent List",
+            "BONUSLIST" :"Bonus List",
+            "EX.MACHINESALARYLIST" :"Ex.Machine List",
+            "EMPLOYEE_LIST":"Employee List",
+            
+            "WITHDRAWAL_LIST" :{
+                "EMPLOYEE":"Employee",
+                "AMOUNT":"Amount",
+                "DATE":"Date",
+                "ACTION":"Action",
+                "ADDWITHDRAWAL":"Add Withdrawal"
+            },
+
+            "ABSENT_LIST" :{
+                "EMPLOYEE":"Employee",
+                "DAY":"Day",
+                "DATE":"Date",
+                "ACTION":"Action",
+                "ADDABSENT":"Add Absent"
+            },
+
+            "BONUS_LIST" :{
+                "EMPLOYEE":"Employee",
+                "AMOUNT":"Amount",
+                "DATE":"Date",
+                "ACTION":"Action",
+                "ADDBONUS" :"Add Bonus"
+            },
+
+            "EX.MACHINE_SALARY_LIST" :{
+                "EMPLOYEE":"Employee",
+                "AMOUNT":"Amount",
+                "DATE":"Date",
+                "ACTION":"Action",
+                "ADDEX.MACHINESALARY":"Add Ex.Machine Salary"
+            }
+
+        },
+
+        "REPORT":{
+            "REPORT":"Report",
+            "NAME":"Name",
+            "SALARY":"Salary",
+            "TOTALDAY":"Days",
+            "CUT":"Cut",
+            "ABSENT":"Absent",
+            "REMAIN_SAL":"Remain ",
+            "EXTRA_SAL":"Extra",
+            "UPAD":"Upad",
+            "BONUS":"Bonus",
+            "FINAL_AMT":"Final AMT"
+        },
+
+        "Attendance_Button":{
+            "EMPLOYEE":"Employee",
+            "BONUS":"Bonus",
+            "ABSENT":"Absent",
+            "WITHDRAWAL":"Withdrawal",
+            "EX.MACHINESAL":"Ex.Machine"
+        }
+    }
+
+    
+}
